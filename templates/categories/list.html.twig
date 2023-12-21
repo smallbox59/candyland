@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des bonbons de la catégorie {{ category.name }}
+{% endblock %}
+
+{% block body %}
+    <main class="container">
+        <section class="row">
+            <div class="col-12">
+                <h1>Liste des bonbons de la catégorie {{ category.name }}</h1>
+            </div>
+            {% for candy in candys.data %}
+                <div class="col-3 mb-3">
+                    <article class="card h-100">
+                        <img src="{{ asset('assets/uploads/candys/mini/300x300-' ~ candy.images[0].name) }}" class="card-img-top" alt="{{ candy.name }}">
+                        <div class="card-body">
+                            <h2 class="card-title">{{ candy.name }}</h2>
+                            <p class="card-text">{{ candy.description }}</p>
+                            <a href="{{ path('candys_details', {"slug": candy.slug}) }}" class="btn btn-primary">
+                            Voir les détails</a>
+                        </div>
+                    </article>
+                </div>
+            {% endfor %}
+            {% set path = 'categories_list' %}
+            {% set slug = category.slug %}
+            {% set pages = candys.pages %}
+            {% set currentPage = candys.page %}
+            {% include "_partials/_pagination.html.twig" %}
+        </section>
+    </main>
+{% endblock %}

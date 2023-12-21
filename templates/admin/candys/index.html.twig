@@ -1,0 +1,41 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Liste des produits{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            {% include "_partials/_adminnav.html.twig" %}
+            <main class="col-9 border border-light bg-white p-2">
+                <h1>Liste des produits</h1>
+                <table class="table">
+                    <thead>
+                        <th>ID</th>
+                        <th>Photo</th>
+                        <th>Nom</th>
+                        <th>Prix</th>
+                        <th>stock</th>
+                        <th>Catégorie</th>
+                        <th>Actions</th>
+                    </thead>
+                    <tbody>
+                        {% for candy in candys %}
+                            <tr>
+                                <td>{{ candy.id }}</td>
+                                <td><img src="{{ asset('assets/uploads/candys/mini/300x300-' ~ candy.images[0].name) }}" 
+                                alt="{{ candy.name }}" class="img-thumbnail"></td>
+                                <td>{{ candy.name }}</td>
+                                <td>{{ candy.price / 100 }}</td>
+                                <td>{{ candy.stock }}</td>
+                                <td>{{ candy.categories.name }}</td>
+                                <td>
+                                    <a href="{{ path('admin_candys_edit', {id: candy.id}) }}" class="btn btn-success">Modifier</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </main>
+        </div>
+    </div>
+{% endblock %}

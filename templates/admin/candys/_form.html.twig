@@ -1,0 +1,23 @@
+{{ form_start(candyForm, {'attr': {'novalidate': 'novalidate'}}) }}
+    {{ form_row(candyForm.name) }}
+    {{ form_row(candyForm.description) }}
+    {{ form_row(candyForm.categories) }}
+    {{ form_row(candyForm.price) }}
+    {{ form_row(candyForm.stock) }}
+
+    {# on afiche les images si on est en edition #}
+    {% if app.request.attributes.get('_route') == 'admin_candys_edit' %}
+        <h2>Images</h2>
+        {% for image in candy.images %}
+            <div>
+                <img src="{{ asset('assets/uploads/candys/mini/300x300-' ~ image.name) }}" alt="Image" width="150">
+                <a href="{{ path('admin_candys_delete_image', {id: image.id}) }}" data-delete data-token="{{ csrf_token('delete' ~ image.id) }}">Supprimer</a>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    {{ form_row(candyForm.images) }}
+
+    <button type="submit" class="btn btn-primary">
+    {{ button_label|default('Ajouter') }}</button>
+{{ form_end(candyForm) }}
