@@ -30,6 +30,7 @@
                                 <td>{{ candy.categories.name }}</td>
                                 <td>
                                     <a href="{{ path('admin_candys_edit', {id: candy.id}) }}" class="btn btn-success">Modifier</a>
+                                    <a href="{{ path('admin_candys_delete', {id: candy.id}) }}" class="btn btn-danger">Supprimer</a>
                                 </td>
                             </tr>
                         {% endfor %}

@@ -47,9 +47,14 @@
                                         <label class="form-check-label" for="switch{{ user.id }}"></label>
                                     </div>
                                 </td>
+                                {% for role in user.roles %}
+                                        {% if "ROLE_ADMIN" in user.roles %}
+                                        {% else %}
                                 <td>
-                                    <a href="" class="btn btn-success">Modifier</a>
+                                    <a href="{{ path('admin_users_upgrade', { 'id': user.id}) }}" class="btn btn-success">Modifier</a>
                                 </td>
+                                        {%  endif %}
+                                {% endfor %}
                             </tr>
                         {% endfor %}
                     </tbody>

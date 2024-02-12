@@ -58,13 +58,12 @@ class RegistrationController extends AbstractController
             //on genere le token
             $token = $jwt->generate($header, $payload, 
             $this->getParameter('app.jwtsecret'));
-            //dd($token);
 
-            //On envoie unmail
+            //On envoie un mail
             $mail->send(
                 'no-reply@monsite.net',
                 $user->getEmail(),
-                'Activation de votre compte sur le site CandyLand',
+                'Activation de votre compte sur le site Candyshop',
                 'register',
                 compact('user', 'token')
             );

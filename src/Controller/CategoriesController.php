@@ -24,12 +24,6 @@ class CategoriesController extends AbstractController
         $candys = $candysRepository->findCandysPaginated($page, $category->getSlug(), 3);
 
         return $this->render('categories/list.html.twig', compact('category', 'candys'));
-        //synthaxe alternative
-        // return $this->render('categories/list.html.twig', [
-        //     'category' => $category,
-        //     'candys' => $candys
-        // ]);
         
     }
-
 }

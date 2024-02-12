@@ -30,10 +30,8 @@ class OrdersController extends AbstractController
         //le panier n'est pas vide, on crée la commande
         $order = new Orders();
 
-        //on remplit la commande
         $order->setUsers($this->getUser());
         $order->setReference(uniqid());
-
         //on parcout le panier pour créer les détails de commande
         foreach($panier as $item => $quantity){
             $orderDetails = new OrdersDetails();
@@ -49,7 +47,6 @@ class OrdersController extends AbstractController
             $orderDetails->setQuantity($quantity);
 
             $order->addOrdersDetail($orderDetails);
-            
         }
 
         //on persiste et on flush
@@ -64,5 +61,16 @@ class OrdersController extends AbstractController
         // return $this->render('orders/index.html.twig', [
         //     'controller_name' => 'OrdersController',
         // ]);
+    }
+
+    #[Route('/liste', name: 'list')]
+    public function list(SessionInterface $session, CandysRepository $candysRepository, 
+    EntityManagerInterface $em): Response
+    {
+
+
+        return $this->render('orders/index.html.twig', [
+               'controller_name' => 'OrdersController',
+            ]);
     }
 }

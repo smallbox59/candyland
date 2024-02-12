@@ -5,7 +5,9 @@ use App\Entity\Images;
 use App\Entity\Candys;
 use App\Form\CandysFormType;
 use App\Repository\CandysRepository;
+use App\Repository\ImagesRepository;
 use App\Service\PictureService;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -146,13 +148,15 @@ class CandysController extends AbstractController
         ]);
     }
 
-    #[Route('/suppression/{id}', name:'delete')]
-    public function delete(Candys $candy): Response
+    #[Route('/suppression/{id}', name:'delete', methods: ['GET'])]
+    public function delete(Candys $candy, EntityManagerInterface $em, Request $request): Response
     {
+        $em->remove($candy);
+        $em->flush();
+        return $this->redirectToRoute('admin_candys_index');
+
         //on verifie si l'utilisateur peut supprimer avec le voter
         $this->denyAccessUnlessGranted('CANDY_DELETE', $candy);
-
-        return $this->render('admin/candys/index.html.twig');
     }
 
     #[Route('/suppression/image/{id}', name:'delete_image', methods: ['DELETE'])]
